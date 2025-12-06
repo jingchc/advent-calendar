@@ -45,6 +45,7 @@ struct DemoApp: App {
     var body: some Scene {
         WindowGroup {
             MainTabView()
+                .preferredColorScheme(.light)
         }
         .modelContainer(sharedModelContainer)
     }
