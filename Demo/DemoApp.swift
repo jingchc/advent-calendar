@@ -12,12 +12,31 @@ import SwiftData
 struct DemoApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            AdventDay.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            let container = try ModelContainer(for: schema, configurations: [modelConfiguration])
+            // Load videos.json and populate SwiftData
+            Task { @MainActor in
+                let context = container.mainContext
+                let descriptor = FetchDescriptor<AdventDay>()
+                let existingCount = (try? context.fetchCount(descriptor)) ?? 0
+                if existingCount == 0 {
+                    let videos = VideoDataLoader.loadVideos()
+                    for video in videos {
+                        let adventDay = AdventDay(
+                            day: video.day,
+                            videoURL: video.videoURL,
+                            title: video.title
+                        )
+                        context.insert(adventDay)
+                    }
+                    try? context.save()
+                }
+            }
+            return container
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
@@ -25,7 +44,7 @@ struct DemoApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainTabView()
         }
         .modelContainer(sharedModelContainer)
     }
