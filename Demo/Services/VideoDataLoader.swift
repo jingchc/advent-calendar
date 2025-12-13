@@ -1,5 +1,5 @@
 //
-//  VideoData.swift
+//  VideoDataLoader.swift
 //  Demo
 //
 //  Created by JingChuang on 2025/12/6.
@@ -19,7 +19,7 @@ struct VideoData: Codable {
     }
 }
 
-struct VideoDataLoader {
+enum VideoDataLoader {
     static func loadVideos() -> [VideoData] {
         guard let url = Bundle.main.url(forResource: "videos", withExtension: "json") else {
             return []

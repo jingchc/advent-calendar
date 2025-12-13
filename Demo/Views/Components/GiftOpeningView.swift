@@ -18,19 +18,13 @@ struct GiftOpeningView: View {
     @State private var iconScale: CGFloat = 0.3
     @State private var iconOpacity: Double = 0
     @State private var iconOffset: CGFloat = 50
-    @State private var backgroundOpacity: Double = 1.0
 
-    private var openedStyle: OpenedStyle {
-        CellStyles.openedStyle(for: day.day)
+    private var theme: DayTheme {
+        ThemeProvider.theme(for: day.day)
     }
 
     var body: some View {
         ZStack {
-            // Background
-            Color.appBackground
-                .opacity(backgroundOpacity)
-                .ignoresSafeArea()
-
             // Sparkles
             if showSparkles {
                 SparklesView()
@@ -39,22 +33,23 @@ struct GiftOpeningView: View {
             // Gift Box
             VStack(spacing: 0) {
                 // Lid
-                GiftLidView(color: openedStyle.bgColor, ribbonColor: openedStyle.iconColor)
+                GiftLidView(color: theme.opened.bgColor, ribbonColor: theme.opened.iconColor)
                     .offset(y: lidOffset)
                     .rotationEffect(.degrees(lidRotation), anchor: .leading)
 
                 // Box body
-                GiftBoxView(color: openedStyle.bgColor, ribbonColor: openedStyle.iconColor)
+                GiftBoxView(color: theme.opened.bgColor, ribbonColor: theme.opened.iconColor)
             }
             .scaleEffect(boxScale)
 
             // Icon reveal - flies up from box
-            openedStyle.iconView(font: .system(size: 80))
+            theme.opened.iconView(font: .system(size: 80))
                 .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
                 .scaleEffect(iconScale)
                 .opacity(iconOpacity)
                 .offset(y: iconOffset)
         }
+        .appBackground()
         .onAppear {
             startAnimation()
         }
@@ -87,7 +82,6 @@ struct GiftOpeningView: View {
         // Phase 4: Transition to video
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             withAnimation(.easeOut(duration: 0.3)) {
-                backgroundOpacity = 0
                 boxScale = 0.5
                 iconScale = 1.5
                 iconOpacity = 0

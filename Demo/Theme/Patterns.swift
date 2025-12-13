@@ -124,5 +124,5 @@ struct DiamondsPattern: View {
         }
     }
     .padding()
-    .background(Color.appBackground)
+    .appBackground()
 }

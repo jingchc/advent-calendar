@@ -49,13 +49,11 @@ struct DebugPanelView: View {
 }
 
 #Preview {
-    ZStack {
-        Color.appBackground.ignoresSafeArea()
-        DebugPanelView(
-            allOpened: false,
-            allFavorite: false,
-            onToggleOpen: {},
-            onToggleFavorite: {}
-        )
-    }
+    DebugPanelView(
+        allOpened: false,
+        allFavorite: false,
+        onToggleOpen: {},
+        onToggleFavorite: {}
+    )
+    .appBackground()
 }

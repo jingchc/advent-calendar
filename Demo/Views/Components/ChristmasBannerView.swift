@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct ChristmasBannerView: View {
-    @State private var isAnimating = false
-
     var body: some View {
         HStack(spacing: 12) {
             Text("🎄")
                 .font(.title)
-                .scaleEffect(isAnimating ? 1.1 : 1.0)
+                .phaseAnimator([false, true]) { content, phase in
+                    content.scaleEffect(phase ? 1.2 : 1.0)
+                } animation: { _ in
+                    .easeInOut(duration: 1.0)
+                }
 
             VStack(spacing: 2) {
                 Text("Merry Christmas!")
@@ -27,7 +29,11 @@ struct ChristmasBannerView: View {
 
             Text("🎅🏻")
                 .font(.title)
-                .scaleEffect(isAnimating ? 1.1 : 1.0)
+                .phaseAnimator([false, true]) { content, phase in
+                    content.scaleEffect(phase ? 1.2 : 1.0)
+                } animation: { _ in
+                    .easeInOut(duration: 1.0)
+                }
         }
         .padding(.vertical, 12)
         .padding(.horizontal, 16)
@@ -40,16 +46,11 @@ struct ChristmasBannerView: View {
         )
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
-        .onAppear {
-            withAnimation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
-                isAnimating = true
-            }
-        }
     }
 }
 
 #Preview {
     ChristmasBannerView()
         .padding()
-        .background(Color.appBackground)
+        .appBackground()
 }

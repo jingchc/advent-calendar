@@ -7,26 +7,25 @@
 
 import SwiftUI
 import SwiftData
+import Dependencies
 
 struct MainTabView: View {
+    @Dependency(\.router) var router
+
     init() {
         // Tab Bar
         let tabAppearance = UITabBarAppearance()
-        tabAppearance.configureWithOpaqueBackground()
-
         let itemAppearance = UITabBarItemAppearance()
         let tabFont = UIFont.appFont(size: 10)
         itemAppearance.normal.titleTextAttributes = [.font: tabFont]
         itemAppearance.selected.titleTextAttributes = [.font: tabFont]
-
         tabAppearance.stackedLayoutAppearance = itemAppearance
         tabAppearance.inlineLayoutAppearance = itemAppearance
         tabAppearance.compactInlineLayoutAppearance = itemAppearance
-        
         UITabBar.appearance().standardAppearance = tabAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabAppearance
-        
-        // Navigation Bar - only change font
+
+        // Navigation Bar
         let navAppearance = UINavigationBarAppearance()
         navAppearance.titleTextAttributes = [.font: UIFont.appFont(size: 17)]
         navAppearance.largeTitleTextAttributes = [.font: UIFont.appFont(size: 34)]
@@ -36,24 +35,42 @@ struct MainTabView: View {
     }
 
     var body: some View {
-        TabView {
-            AdventCalendarView()
-                .tabItem {
-                    Label("Calendar", systemImage: "calendar")
-                }
+        @Bindable var router = router
 
-            NavigationStack {
-                FavoritesView()
+        TabView {
+            NavigationStack(path: $router.calendarPath) {
+                AdventCalendarView()
+                    .navigationDestination(for: Destination.self) { destination in
+                        switch destination {
+                        case .video(let day):
+                            VideoPlayerView(day: day)
+                        }
+                    }
             }
+            .toolbar(router.calendarPath.isEmpty ? .visible : .hidden, for: .tabBar)
+            .tabItem {
+                Label("Calendar", systemImage: "calendar")
+            }
+
+            NavigationStack(path: $router.favoritesPath) {
+                FavoritesView()
+                    .navigationDestination(for: Destination.self) { destination in
+                        switch destination {
+                        case .video(let day):
+                            VideoPlayerView(day: day)
+                        }
+                    }
+            }
+            .toolbar(router.favoritesPath.isEmpty ? .visible : .hidden, for: .tabBar)
             .tabItem {
                 Label("Favorites", systemImage: "heart.fill")
             }
         }
-        .tint(.christmasRed)
     }
 }
 
 #Preview {
+    @Dependency(\.database) var database
     MainTabView()
-        .modelContainer(for: AdventDay.self, inMemory: true)
+        .modelContainer(database.container)
 }

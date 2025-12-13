@@ -62,5 +62,5 @@ extension Color {
         }
         .padding()
     }
-    .background(Color.appBackground)
+    .appBackground()
 }

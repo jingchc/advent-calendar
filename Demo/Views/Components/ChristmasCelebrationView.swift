@@ -9,11 +9,9 @@ import SwiftUI
 
 struct ChristmasCelebrationView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var titleScale: CGFloat = 0.5
-    @State private var titleOpacity: Double = 0
-    @State private var messageOpacity: Double = 0
+    @State private var isAnimated = false
     @State private var snowflakes: [Snowflake] = []
-    @State private var showSparkles = false
+    @State private var sparklePositions: [CGPoint] = []
 
     var body: some View {
         GeometryReader { geometry in
@@ -41,17 +39,14 @@ struct ChristmasCelebrationView: View {
                         }
                     }
                 }
+                .ignoresSafeArea()
 
                 // Sparkles
-                if showSparkles {
-                    ForEach(0..<20, id: \.self) { i in
-                        SparkleView(delay: Double(i) * 0.1)
-                            .position(
-                                x: CGFloat.random(in: 50...geometry.size.width - 50),
-                                y: CGFloat.random(in: 200...geometry.size.height - 200)
-                            )
-                    }
+                ForEach(sparklePositions.indices, id: \.self) { i in
+                    SparkleView(delay: Double(i) * 0.1)
+                        .position(sparklePositions[i])
                 }
+                .ignoresSafeArea()
 
                 VStack(spacing: 30) {
                     Spacer()
@@ -59,14 +54,14 @@ struct ChristmasCelebrationView: View {
                     // Christmas tree emoji
                     Text("🎄")
                         .font(.system(size: 80))
-                        .scaleEffect(titleScale)
+                        .scaleEffect(isAnimated ? 1.0 : 0.5)
 
                     // Title
                     Text("Merry Christmas!")
                         .font(.appFont(size: 36, weight: .bold))
                         .foregroundColor(.cream)
-                        .scaleEffect(titleScale)
-                        .opacity(titleOpacity)
+                        .scaleEffect(isAnimated ? 1.0 : 0.5)
+                        .opacity(isAnimated ? 1.0 : 0)
 
                     // Blessing messages
                     VStack(spacing: 16) {
@@ -77,7 +72,7 @@ struct ChristmasCelebrationView: View {
                     .font(.appFont(size: 18, weight: .regular))
                     .foregroundColor(.cream.opacity(0.9))
                     .multilineTextAlignment(.center)
-                    .opacity(messageOpacity)
+                    .opacity(isAnimated ? 1.0 : 0)
 
                     Spacer()
 
@@ -93,42 +88,39 @@ struct ChristmasCelebrationView: View {
                             .background(Color.cream)
                             .clipShape(Capsule())
                     }
-                    .opacity(messageOpacity)
+                    .opacity(isAnimated ? 1.0 : 0)
                     .padding(.bottom, 50)
                 }
                 .padding()
             }
-        }
-        .onAppear {
-            startAnimations()
+            .onAppear {
+                setupAnimations(in: geometry.size)
+            }
         }
     }
 
-    private func startAnimations() {
-        // Generate snowflakes (positions are used as offsets for continuous falling)
+    private func setupAnimations(in size: CGSize) {
+        // Generate snowflakes (y is random offset for staggered start)
         snowflakes = (0..<30).map { _ in
             Snowflake(
-                x: CGFloat.random(in: 20...380),
-                y: CGFloat.random(in: 0...800),
+                x: CGFloat.random(in: 0...size.width),
+                y: CGFloat.random(in: 0...size.height + 100),
                 size: CGFloat.random(in: 15...30),
                 opacity: Double.random(in: 0.4...0.9)
             )
         }
 
-        // Title animation
+        // Generate sparkle positions once
+        sparklePositions = (0..<20).map { _ in
+            CGPoint(
+                x: CGFloat.random(in: 50...size.width - 50),
+                y: CGFloat.random(in: 50...size.height - 50)
+            )
+        }
+
+        // Single animation trigger
         withAnimation(.spring(response: 0.8, dampingFraction: 0.6).delay(0.3)) {
-            titleScale = 1.0
-            titleOpacity = 1.0
-        }
-
-        // Message animation
-        withAnimation(.easeOut(duration: 0.8).delay(0.8)) {
-            messageOpacity = 1.0
-        }
-
-        // Sparkles
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            showSparkles = true
+            isAnimated = true
         }
     }
 }

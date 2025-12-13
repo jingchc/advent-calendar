@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D90A7ED12EEC98F100B3C79A /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = D90A7ED02EEC98F100B3C79A /* Dependencies */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		D979A9F12EE3B1050051B598 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,14 +28,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D90A7FEB2EED692500B3C79A /* Demo.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = file; path = Demo.xctestplan; sourceTree = "<group>"; };
 		D979A9E12EE3B1030051B598 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D979A9F02EE3B1050051B598 /* DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D979A9FA2EE3B1050051B598 /* DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D90A7FF52EED753700B3C79A /* Exceptions for "Demo" folder in "DemoUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Utilities/AccessibilityID.swift,
+			);
+			target = D979A9F92EE3B1050051B598 /* DemoUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D979A9E32EE3B1030051B598 /* Demo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D90A7FF52EED753700B3C79A /* Exceptions for "Demo" folder in "DemoUITests" target */,
+			);
 			path = Demo;
 			sourceTree = "<group>";
 		};
@@ -52,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D90A7ED12EEC98F100B3C79A /* Dependencies in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +91,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D90A7ECF2EEC98F100B3C79A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D979A9D82EE3B1030051B598 = {
 			isa = PBXGroup;
 			children = (
+				D90A7FEB2EED692500B3C79A /* Demo.xctestplan */,
 				D979A9E32EE3B1030051B598 /* Demo */,
 				D979A9F32EE3B1050051B598 /* DemoTests */,
 				D979A9FD2EE3B1050051B598 /* DemoUITests */,
+				D90A7ECF2EEC98F100B3C79A /* Frameworks */,
 				D979A9E22EE3B1030051B598 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +140,7 @@
 			);
 			name = Demo;
 			packageProductDependencies = (
+				D90A7ED02EEC98F100B3C79A /* Dependencies */,
 			);
 			productName = Demo;
 			productReference = D979A9E12EE3B1030051B598 /* Demo.app */;
@@ -195,6 +224,9 @@
 			);
 			mainGroup = D979A9D82EE3B1030051B598;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D90A7ECE2EEC98B700B3C79A /* XCRemoteSwiftPackageReference "swift-dependencies" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D979A9E22EE3B1030051B598 /* Products */;
 			projectDirPath = "";
@@ -481,11 +513,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jingchc.DemoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Demo";
 			};
 			name = Debug;
@@ -503,11 +539,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jingchc.DemoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Demo";
 			};
 			name = Release;
@@ -523,11 +563,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jingchc.DemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = Demo;
 			};
 			name = Debug;
@@ -543,11 +587,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jingchc.DemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = Demo;
 			};
 			name = Release;
@@ -592,6 +640,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D90A7ECE2EEC98B700B3C79A /* XCRemoteSwiftPackageReference "swift-dependencies" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-dependencies";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D90A7ED02EEC98F100B3C79A /* Dependencies */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D90A7ECE2EEC98B700B3C79A /* XCRemoteSwiftPackageReference "swift-dependencies" */;
+			productName = Dependencies;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D979A9D92EE3B1030051B598 /* Project object */;
 }
